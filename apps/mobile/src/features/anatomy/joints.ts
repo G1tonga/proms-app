@@ -2,6 +2,12 @@ export const JOINT_IDS = ["shoulder", "elbow", "wrist", "hip", "knee", "ankle"] 
 
 export type JointId = (typeof JOINT_IDS)[number];
 
+export const SIDES = ["left", "right"] as const;
+
+export type Side = (typeof SIDES)[number];
+
+export type SelectionKey = `${JointId}-${Side}`;
+
 export type Joint = {
   id: JointId;
   label: string;
@@ -19,4 +25,21 @@ export const JOINTS: readonly Joint[] = [
 
 export function getJoint(id: string): Joint | undefined {
   return JOINTS.find((joint) => joint.id === id);
+}
+
+export function selectionKey(jointId: JointId, side: Side): SelectionKey {
+  return `${jointId}-${side}`;
+}
+
+export function parseSelectionKey(key: string): { jointId: JointId; side: Side } | undefined {
+  const [jointPart, sidePart] = key.split("-");
+  const joint = getJoint(jointPart);
+  const side = SIDES.find((candidate) => candidate === sidePart);
+  return joint && side ? { jointId: joint.id, side } : undefined;
+}
+
+export function selectionLabel(jointId: JointId, side: Side): string {
+  const joint = getJoint(jointId);
+  const sideLabel = side === "left" ? "Left" : "Right";
+  return `${sideLabel} ${(joint?.label ?? jointId).toLowerCase()}`;
 }

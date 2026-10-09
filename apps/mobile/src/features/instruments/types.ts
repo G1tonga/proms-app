@@ -1,4 +1,4 @@
-import type { JointId } from "@/features/anatomy/joints";
+import type { JointId, Side } from "@/features/anatomy/joints";
 
 export type ResponseOption = {
   value: number;
@@ -24,6 +24,7 @@ export type Answers = Record<string, number>;
 export type ScoreResult = {
   instrumentId: string;
   jointId: JointId;
+  side: Side;
   raw: number;
   max: number;
   score: number;
