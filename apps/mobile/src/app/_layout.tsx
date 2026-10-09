@@ -4,8 +4,10 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { LogBox } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
+LogBox.ignoreLogs(["THREE.Clock"]);
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({

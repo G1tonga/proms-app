@@ -22,7 +22,7 @@ export const DEFAULT_VIEW: ViewState = { yaw: 0, pitch: 0, zoom: 3.4 };
 const BONE_COLOR = "#e9e2cf";
 const IDLE_COLOR = "#0f9b8e";
 const SELECTED_COLOR = "#f59e0b";
-const PICK_RADIUS = 0.1;
+const PICK_RADIUS = 0.14;
 const DEPTH_BIAS = 0.15;
 const UP = new Vector3(0, 1, 0);
 

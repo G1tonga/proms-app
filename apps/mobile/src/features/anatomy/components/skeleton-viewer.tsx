@@ -35,7 +35,7 @@ export function SkeletonViewer({ sex, selected, onToggle }: SkeletonViewerProps)
     const pan = Gesture.Pan()
       .runOnJS(true)
       .minDistance(8)
-      .onUpdate((event) => {
+      .onChange((event) => {
         view.current.yaw += event.changeX * 0.012;
         view.current.pitch = clamp(
           view.current.pitch + event.changeY * 0.006,
@@ -55,12 +55,13 @@ export function SkeletonViewer({ sex, selected, onToggle }: SkeletonViewerProps)
 
     const tapGesture = Gesture.Tap()
       .runOnJS(true)
-      .maxDistance(10)
-      .onEnd((event, success) => {
+      .maxDistance(20)
+      .maxDuration(500)
+      .onFinalize((event, success) => {
         if (success) tap.current = { x: event.x, y: event.y };
       });
 
-    return Gesture.Race(tapGesture, Gesture.Simultaneous(pan, pinch));
+    return Gesture.Exclusive(tapGesture, Gesture.Simultaneous(pan, pinch));
   }, []);
 
   const handleReset = () => {
@@ -70,16 +71,19 @@ export function SkeletonViewer({ sex, selected, onToggle }: SkeletonViewerProps)
   return (
     <View className="flex-1 overflow-hidden rounded-3xl border border-border bg-card">
       <GestureDetector gesture={gesture}>
-        <View className="flex-1">
-          <Canvas style={{ flex: 1 }} camera={{ position: [0, 0, DEFAULT_VIEW.zoom], fov: 35 }}>
-            <SkeletonScene
-              sex={sex}
-              selected={selected}
-              view={view}
-              tap={tap}
-              onToggle={onToggle}
-            />
-          </Canvas>
+        <View className="flex-1" collapsable={false}>
+          {/* The Canvas must ignore touches so the gesture detector receives them. */}
+          <View className="flex-1" pointerEvents="none">
+            <Canvas style={{ flex: 1 }} camera={{ position: [0, 0, DEFAULT_VIEW.zoom], fov: 35 }}>
+              <SkeletonScene
+                sex={sex}
+                selected={selected}
+                view={view}
+                tap={tap}
+                onToggle={onToggle}
+              />
+            </Canvas>
+          </View>
         </View>
       </GestureDetector>
 

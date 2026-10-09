@@ -1,36 +1,30 @@
-import type { ReactNode } from "react";
-import { ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Text, TextInput, type TextInputProps, View } from "react-native";
 
-type ScreenProps = {
-  children: ReactNode;
-  footer?: ReactNode;
-  topInset?: boolean;
-  scrollable?: boolean;
+import { colors } from "@/theme/colors";
+
+type TextFieldProps = Pick<
+  TextInputProps,
+  "autoCapitalize" | "autoCorrect" | "keyboardType" | "maxLength" | "placeholder"
+> & {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  error?: string;
 };
 
-export function Screen({ children, footer, topInset = false, scrollable = true }: ScreenProps) {
-  const insets = useSafeAreaInsets();
-
+export function TextField({ label, value, onChangeText, error, ...inputProps }: TextFieldProps) {
   return (
-    <View className="screen" style={{ paddingTop: topInset ? insets.top : 0 }}>
-      {scrollable ? (
-        <ScrollView
-          className="flex-1"
-          contentContainerStyle={{ flexGrow: 1 }}
-          automaticallyAdjustKeyboardInsets
-          keyboardShouldPersistTaps="handled"
-        >
-          <View className="screen-content">{children}</View>
-        </ScrollView>
-      ) : (
-        <View className="flex-1 gap-4 px-6 pt-4">{children}</View>
-      )}
-      {footer ? (
-        <View className="screen-footer" style={{ paddingBottom: insets.bottom + 16 }}>
-          {footer}
-        </View>
-      ) : null}
+    <View className="field">
+      <Text className="field-label">{label}</Text>
+      <TextInput
+        {...inputProps}
+        accessibilityLabel={label}
+        className={error ? "input input-error" : "input"}
+        onChangeText={onChangeText}
+        placeholderTextColor={colors.mutedForeground}
+        value={value}
+      />
+      {error ? <Text className="field-error">{error}</Text> : null}
     </View>
   );
 }
