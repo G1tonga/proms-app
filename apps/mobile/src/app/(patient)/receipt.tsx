@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/notice";
 import { Screen } from "@/components/ui/screen";
-import { getJoint } from "@/features/anatomy/joints";
+import { selectionLabel } from "@/features/anatomy/joints";
 import { usePatientSession } from "@/store/patient-session-store";
 
 export default function ReceiptScreen() {
@@ -32,10 +32,8 @@ export default function ReceiptScreen() {
       <Notice message="Prototype only: nothing was sent or saved. The scores below are for testing and may not be shown to patients in the final app." />
 
       {submission.results.map((result) => (
-        <View key={result.instrumentId} className="card">
-          <Text className="question-title">
-            {getJoint(result.jointId)?.label ?? result.jointId}
-          </Text>
+        <View key={`${result.instrumentId}-${result.side}`} className="card">
+          <Text className="question-title">{selectionLabel(result.jointId, result.side)}</Text>
           <Text className="score-value">{result.score} / 100</Text>
           <Text className="helper-text">
             Raw {result.raw} of {result.max} (simulated)

@@ -17,7 +17,7 @@ export default function PatientLayout() {
       <Stack.Screen name="consent" options={{ title: "Consent" }} />
       <Stack.Screen name="details" options={{ title: "Your details" }} />
       <Stack.Screen name="joints" options={{ title: "Select joint" }} />
-      <Stack.Screen name="questionnaire/[jointId]" options={{ title: "Questions" }} />
+      <Stack.Screen name="questionnaire/[selection]" options={{ title: "Questions" }} />
       <Stack.Screen
         name="receipt"
         options={{ title: "Submitted", headerBackVisible: false, gestureEnabled: false }}
