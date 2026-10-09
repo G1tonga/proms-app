@@ -1,0 +1,86 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+@theme {
+  --color-background: #f6fafb;
+  --color-foreground: #0f2a3d;
+  --color-card: #ffffff;
+  --color-muted: #e6eef2;
+  --color-muted-foreground: #4a6272;
+  --color-primary: #0b6e8a;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #0f9b8e;
+  --color-border: #cfdce3;
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-destructive: #b91c1c;
+}
+
+@layer components {
+  .screen {
+    @apply flex-1 bg-background;
+  }
+
+  .screen-content {
+    @apply grow gap-6 px-6 pb-10 pt-6;
+  }
+
+  .title {
+    @apply text-3xl font-bold text-foreground;
+  }
+
+  .subtitle {
+    @apply text-lg text-muted-foreground;
+  }
+
+  .body-text {
+    @apply text-lg text-foreground;
+  }
+
+  .card {
+    @apply gap-4 rounded-3xl border border-border bg-card p-5;
+  }
+
+  .field {
+    @apply gap-2;
+  }
+
+  .field-label {
+    @apply text-base font-semibold text-foreground;
+  }
+
+  .input {
+    @apply min-h-14 rounded-2xl border border-border bg-card px-4 text-lg text-foreground;
+  }
+
+  .input-error {
+    @apply border-destructive;
+  }
+
+  .field-error {
+    @apply text-base text-destructive;
+  }
+
+  .btn-primary {
+    @apply min-h-14 items-center justify-center rounded-2xl bg-primary px-6;
+  }
+
+  .btn-primary-text {
+    @apply text-lg font-semibold text-primary-foreground;
+  }
+
+  .btn-secondary {
+    @apply min-h-14 items-center justify-center rounded-2xl border border-primary bg-card px-6;
+  }
+
+  .btn-secondary-text {
+    @apply text-lg font-semibold text-primary;
+  }
+
+  .btn-disabled {
+    @apply opacity-40;
+  }
+}
