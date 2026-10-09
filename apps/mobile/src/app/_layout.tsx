@@ -1,12 +1,13 @@
 import "../global.css";
 
-// import "../../"
-
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { LogBox } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
+LogBox.ignoreLogs(["THREE.Clock"]);
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -26,5 +27,9 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !fontError) return null;
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack screenOptions={{ headerShown: false }} />
+    </GestureHandlerRootView>
+  );
 }

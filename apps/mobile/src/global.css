@@ -32,7 +32,11 @@
   }
 
   .screen-content {
-    @apply grow gap-6 px-6 pb-10 pt-6;
+    @apply grow gap-6 px-6 pt-6 pb-10;
+  }
+
+  .screen-footer {
+    @apply border-t border-border bg-background px-6 pt-4;
   }
 
   .title {
@@ -45,6 +49,14 @@
 
   .body-text {
     @apply font-sans text-lg text-foreground;
+  }
+
+  .helper-text {
+    @apply font-sans-medium text-base text-muted-foreground;
+  }
+
+  .question-title {
+    @apply font-sans-semibold text-lg text-foreground;
   }
 
   .card {
@@ -89,5 +101,65 @@
 
   .btn-disabled {
     @apply opacity-40;
+  }
+
+  .choice {
+    @apply min-h-14 flex-row items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3;
+  }
+
+  .choice-selected {
+    @apply border-primary bg-primary/10;
+  }
+
+  .choice-mark {
+    @apply size-6 items-center justify-center rounded-full border-2 border-border;
+  }
+
+  .choice-mark-square {
+    @apply rounded-md;
+  }
+
+  .choice-mark-selected {
+    @apply border-primary bg-primary;
+  }
+
+  .choice-dot {
+    @apply size-2.5 rounded-full bg-primary-foreground;
+  }
+
+  .choice-check {
+    @apply font-sans-bold text-base text-primary-foreground;
+  }
+
+  .choice-text {
+    @apply font-sans-medium text-lg text-foreground;
+  }
+
+  .choice-text-selected {
+    @apply font-sans-semibold text-primary;
+  }
+
+  .choice-description {
+    @apply font-sans text-base text-muted-foreground;
+  }
+
+  .notice {
+    @apply rounded-2xl border border-warning/40 bg-warning/10 p-4;
+  }
+
+  .notice-text {
+    @apply font-sans-medium text-base text-foreground;
+  }
+
+  .progress-track {
+    @apply h-3 overflow-hidden rounded-full bg-muted;
+  }
+
+  .progress-fill {
+    @apply h-3 rounded-full bg-primary;
+  }
+
+  .score-value {
+    @apply font-sans-extrabold text-4xl text-primary;
   }
 }
