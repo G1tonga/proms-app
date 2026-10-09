@@ -1,26 +1,30 @@
-import { Pressable, Text } from "react-native";
+import { Text, TextInput, type TextInputProps, View } from "react-native";
 
-type ButtonProps = {
+import { colors } from "@/theme/colors";
+
+type TextFieldProps = Pick<
+  TextInputProps,
+  "autoCapitalize" | "autoCorrect" | "keyboardType" | "maxLength" | "placeholder"
+> & {
   label: string;
-  onPress: () => void;
-  variant?: "primary" | "secondary";
-  disabled?: boolean;
+  value: string;
+  onChangeText: (text: string) => void;
+  error?: string;
 };
 
-export function Button({ label, onPress, variant = "primary", disabled = false }: ButtonProps) {
-  const isPrimary = variant === "primary";
-
+export function TextField({ label, value, onChangeText, error, ...inputProps }: TextFieldProps) {
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      disabled={disabled}
-      onPress={onPress}
-      className={`${isPrimary ? "btn-primary" : "btn-secondary"} active:opacity-80 ${
-        disabled ? "btn-disabled" : ""
-      }`}
-    >
-      <Text className={isPrimary ? "btn-primary-text" : "btn-secondary-text"}>{label}</Text>
-    </Pressable>
+    <View className="field">
+      <Text className="field-label">{label}</Text>
+      <TextInput
+        {...inputProps}
+        accessibilityLabel={label}
+        className={error ? "input input-error" : "input"}
+        onChangeText={onChangeText}
+        placeholderTextColor={colors.mutedForeground}
+        value={value}
+      />
+      {error ? <Text className="field-error">{error}</Text> : null}
+    </View>
   );
 }
